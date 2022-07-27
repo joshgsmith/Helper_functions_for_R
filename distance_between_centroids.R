@@ -3,6 +3,10 @@
 
 #This function calculates the distance between centroids in high dimensional space. 
 #Requires usedist::dist_between_centroids()
+#Replace 'year' with centroid groupings. 
+
+#group = data frame containing grouping variables. Must be same length as 'x'.
+# X = distance matrix. Must be same length as 'group'. 
 
 cenfun2 <- function(group, x) {
   
@@ -20,4 +24,4 @@ cenfun2 <- function(group, x) {
       distance = dist_between_centroids(x, idx1, idx2)
     )
   })
-} #start and end are grouping vars, x is distmat
+} 
