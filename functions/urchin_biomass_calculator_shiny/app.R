@@ -7,7 +7,7 @@ library(shiny)
 library(vcdExtra)
 library(readr)
 
-setwd(here::here("functions","urchin_biomass_calculator_shiny"))
+#setwd(here::here("functions","urchin_biomass_calculator_shiny"))
 
 # Function to load sample data
 load_sample_data <- function() {
