@@ -76,8 +76,8 @@ ui <- fluidPage(
       numericInput("density", "Average Density (per m^2):", value = 10),
       numericInput("target_density", "Target Density (per m^2):", value = 2), # Added target density input
       numericInput("area", "Restoration Area (square meters):", value = 100),
+      uiOutput("size_column_select"),  # Dynamic UI for selecting the size column
       selectInput("size_units", "Size Units:", choices = c("mm", "cm"), selected = "mm"),
-      uiOutput("default_size_column"),  # Dynamic UI for setting the default size column
       helpText(HTML("Biomass (g) = a + b * exp(c * d) <br> a = -19.94355 <br> b = 10.71374 <br> c = 0.03670476 <br> d = test diameter (mm)"))
     ),
     mainPanel(
@@ -95,24 +95,25 @@ server <- function(input, output, session) {
   data_loaded <- reactive({
     if (input$data_source == "Sample Data") {
       df <- load_sample_data()
-    } else {
+    } else if (input$data_source == "Upload Data") {
       req(input$datafile)
       df <- read.csv(input$datafile$datapath, stringsAsFactors = FALSE)
       
-      # Convert the selected column to numeric, replacing non-numeric values with NA
-      df[[input$size_column]] <- as.numeric(df[[input$size_column]])
+      # Update the choices for the size column dropdown based on the columns in the selected data
+      choices <- names(df)
+      updateSelectInput(session, "size_column", choices = choices)
     }
-    
-    # Update the choices for the size column dropdown based on the columns in the selected data
-    updateSelectInput(session, "size_column", choices = names(df))
     
     return(df)
   })
   
   # Dynamically set the default size column based on the data source
-  output$default_size_column <- renderUI({
-    if (input$data_source == "Sample Data") {
-      return(selectInput("size_column", "Select Size Column:", choices = colnames(load_sample_data())))
+  output$size_column_select <- renderUI({
+    if (input$data_source == "Upload Data") {
+      selectInput("size_column", "Select Size Column:", choices = names(data_loaded()))
+    } else if (input$data_source == "Sample Data") {
+      df <- load_sample_data()
+      selectInput("size_column", "Select Size Column:", choices = names(df))
     } else {
       return(NULL)
     }
