@@ -5,8 +5,8 @@
 # About
 # This is the processing script used to derive purple sea urchin length-weight
 # conversion parameters. The conversion parameters were obtained using 
-#  132 purple sea urchins (strongylocentrotus purpurtus) collected by J. Smith. 
-# Sea urchins were brought to the lab, measured, and dissected. 
+#  132 purple sea urchins (strongylocentrotus purpuratus) collected by J. Smith. 
+# Sea urchins were brought to the lab, measured, weighed, and dissected. 
 # three individuals had no gonads and those values are reported as 0. 
 
 ################################################################################
