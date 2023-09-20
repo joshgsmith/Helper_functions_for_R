@@ -74,7 +74,7 @@ ui <- fluidPage(
         fileInput("datafile", "Select Size Data CSV File:")
       ),
       numericInput("density", "Average Density (per m^2):", value = 10),
-      numericInput("target_density", "Target Density (per m^2):", value = 10), # Added target density input
+      numericInput("target_density", "Target Density (per m^2):", value = 2), # Added target density input
       numericInput("area", "Restoration Area (square meters):", value = 100),
       selectInput("size_units", "Size Units:", choices = c("mm", "cm"), selected = "mm"),
       uiOutput("default_size_column")  # Dynamic UI for setting the default size column
