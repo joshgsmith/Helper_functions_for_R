@@ -62,7 +62,7 @@ ui <- fluidPage(
   titlePanel("Urchin Biomass Calculator"),
   
   # Add the description 
-  helpText("This app calculates the total biomass of purple sea urchins per focal area and the removal biomass required to achieve a target threshold density. The calculator uses the average density per m^2 and a user-defined size frequency distribution to infer the total biomass of urchins at a focal area. The size frequency, average density, target density, and restoration area should be defined by the user in a system-specific context. User-defined size frequency data should be in long format (rows as individuals with size estimates); size can be in either cm or mm, but the calculator will apply mm to the biomass conversion."),
+  helpText("This app calculates the total biomass of purple sea urchins per focal area and the removal biomass required to achieve a target threshold density. The calculator uses the average density per m^2 and a user-defined size frequency distribution to infer the total biomass of urchins at a focal area. The size frequency, average density, target density, and restoration area should be defined by the user in a system-specific context. User-uploaded size frequency data should be in long format (rows as individuals with size estimates); size can be in either cm or mm, but this should be specified in Size Units within the calculator."),
   
 
   helpText("Created by: Joshua G. Smith, Monterey Bay Aquarium, jossmith@mbayaq.org"),
