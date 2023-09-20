@@ -55,16 +55,20 @@ total_biomass <- function(average_density, total_area, size_distribution_df, siz
   return(c(g = total_biomass_grams, kg = total_biomass_kg, lbs = total_biomass_lbs))
 }
 
+
+
+# Define the UI for the Shiny app
 ui <- fluidPage(
   titlePanel("Urchin Biomass Calculator"),
+  
+  # Add the description text using helpText
+  helpText("This app calculates the total biomass of purple sea urchins per focal area and the removal biomass required to achieve a target threshold density. The calculator uses the average density per m^2 and a user-defined size frequency distribution to infer the total biomass of urchins at a focal area. The size frequency, average density, target density, and restoration area should be defined by the user in a system-specific context."),
+  
+  # Add the "Created by" line using helpText
+  helpText("Created by: Joshua G. Smith, Monterey Bay Aquarium, jossmith@mbayaq.org"),
   sidebarLayout(
     sidebarPanel(
-      radioButtons(
-        "data_source", 
-        "Data Source:", 
-        choices = c("Sample Size Fq Data" = "Sample Data", "Upload Size Fq Data" = "Upload Data"), 
-        selected = "Sample Data"
-      ),
+      radioButtons("data_source", "Data Source:", choices = c("Sample Data", "Upload Data"), selected = "Sample Data"),
       conditionalPanel(
         condition = "input.data_source == 'Upload Data'",
         fileInput("datafile", "Select Size Data CSV File:")
@@ -73,9 +77,7 @@ ui <- fluidPage(
       numericInput("target_density", "Target Density (per m^2):", value = 10), # Added target density input
       numericInput("area", "Restoration Area (square meters):", value = 100),
       selectInput("size_units", "Size Units:", choices = c("mm", "cm"), selected = "mm"),
-      uiOutput("default_size_column"),  # Dynamic UI for setting the default size column
-      helpText(HTML("Biomass (g) = a + b * exp(c * d) <br> a = -19.94355 <br> b = 10.71374 <br> c = 0.03670476 <br> d = test diameter (mm)"))
-      
+      uiOutput("default_size_column")  # Dynamic UI for setting the default size column
     ),
     mainPanel(
       htmlOutput("result_average_density"),  # Use htmlOutput instead of HTMLOutput
@@ -84,6 +86,7 @@ ui <- fluidPage(
     )
   )
 )
+
 
 
 # Define the server logic for the Shiny app
