@@ -77,7 +77,8 @@ ui <- fluidPage(
       numericInput("target_density", "Target Density (per m^2):", value = 2), # Added target density input
       numericInput("area", "Restoration Area (square meters):", value = 100),
       selectInput("size_units", "Size Units:", choices = c("mm", "cm"), selected = "mm"),
-      uiOutput("default_size_column")  # Dynamic UI for setting the default size column
+      uiOutput("default_size_column"),  # Dynamic UI for setting the default size column
+      helpText(HTML("Biomass (g) = a + b * exp(c * d) <br> a = -19.94355 <br> b = 10.71374 <br> c = 0.03670476 <br> d = test diameter (mm)"))
     ),
     mainPanel(
       htmlOutput("result_average_density"),  # Use htmlOutput instead of HTMLOutput

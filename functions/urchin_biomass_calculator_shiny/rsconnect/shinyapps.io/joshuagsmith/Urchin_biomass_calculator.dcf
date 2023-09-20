@@ -5,9 +5,9 @@ account: joshuagsmith
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9931845
-bundleId: 7707915
+bundleId: 7707918
 url: https://joshuagsmith.shinyapps.io/Urchin_biomass_calculator/
-when: 1695230382.64297
-lastSyncTime: 1695230382.64299
+when: 1695230551.16746
+lastSyncTime: 1695230551.16748
 asMultiple: FALSE
 asStatic: FALSE
