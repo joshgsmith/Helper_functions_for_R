@@ -61,10 +61,10 @@ total_biomass <- function(average_density, total_area, size_distribution_df, siz
 ui <- fluidPage(
   titlePanel("Urchin Biomass Calculator"),
   
-  # Add the description text using helpText
+  # Add the description 
   helpText("This app calculates the total biomass of purple sea urchins per focal area and the removal biomass required to achieve a target threshold density. The calculator uses the average density per m^2 and a user-defined size frequency distribution to infer the total biomass of urchins at a focal area. The size frequency, average density, target density, and restoration area should be defined by the user in a system-specific context. User-defined size frequency data should be in long format (rows as individuals with size estimates); size can be in either cm or mm, but the calculator will apply mm to the biomass conversion."),
   
-  # Add the "Created by" line using helpText
+
   helpText("Created by: Joshua G. Smith, Monterey Bay Aquarium, jossmith@mbayaq.org"),
   sidebarLayout(
     sidebarPanel(
@@ -74,23 +74,23 @@ ui <- fluidPage(
         fileInput("datafile", "Select Size Data CSV File:")
       ),
       numericInput("density", "Average Density (per m^2):", value = 10),
-      numericInput("target_density", "Target Density (per m^2):", value = 2), # Added target density input
+      numericInput("target_density", "Target Density (per m^2):", value = 2), 
       numericInput("area", "Restoration Area (square meters):", value = 100),
-      uiOutput("size_column_select"),  # Dynamic UI for selecting the size column
+      uiOutput("size_column_select"),  
       selectInput("size_units", "Size Units:", choices = c("mm", "cm"), selected = "mm"),
       helpText(HTML("Biomass (g) = a + b * exp(c * d) <br> a = -19.94355 <br> b = 10.71374 <br> c = 0.03670476 <br> d = test diameter (mm)"))
     ),
     mainPanel(
-      htmlOutput("result_average_density"),  # Use htmlOutput instead of HTMLOutput
+      htmlOutput("result_average_density"),  
       plotOutput("histogram", width = "500px", height = "400px"),  # Set the plot dimensions
-      htmlOutput("target_density_difference")  # Use htmlOutput instead of HTMLOutput for target density difference
+      htmlOutput("target_density_difference")  
     )
   )
 )
 
 
 
-# Define the server logic for the Shiny app
+# Define the server logic 
 server <- function(input, output, session) {
   data_loaded <- reactive({
     if (input$data_source == "Sample Data") {
@@ -98,7 +98,6 @@ server <- function(input, output, session) {
     } else if (input$data_source == "Upload Data") {
       req(input$datafile)
       df <- read.csv(input$datafile$datapath, stringsAsFactors = FALSE)
-      
       # Update the choices for the size column dropdown based on the columns in the selected data
       choices <- names(df)
       updateSelectInput(session, "size_column", choices = choices)
@@ -192,7 +191,7 @@ server <- function(input, output, session) {
     return(difference)
   })
   
-  # Render the average density output in red
+  # Render the average density output in red for removal biomass
   output$result_average_density <- renderUI({
     result_text <- paste(
       "Total Biomass in Kg (Average Density):", total_biomass_result_average_density()["kg"], "kg", 
@@ -242,5 +241,5 @@ server <- function(input, output, session) {
   })
 }
 
-# Run the Shiny app
+
 shinyApp(ui = ui, server = server)
